@@ -1,0 +1,11 @@
+name: Build and Deploy to Azure
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - template: ./build/_build_docker_image.yml

@@ -1,0 +1,7 @@
+steps:  
+  - name: Deploy to Azure Web App
+    uses: azure/webapps-deploy@v3
+    with:
+      app-name: 'TPFinal CP Adrien Verstrepen'
+      publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+      images: '${{ secrets.DOCKER_USERNAME }}/vue-app:${{ github.sha }}'
