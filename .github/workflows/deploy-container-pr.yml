@@ -1,4 +1,4 @@
-name: Build and Deploy to Azure
+name: Bulid on PR on main
 
 on:
   pull_request:
@@ -8,4 +8,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - template: ./build/_build_docker_image.yml
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build BUILD_ID=${{ github.sha }} -t ${{ secrets.DOCKERHUB_USERNAME }}/vue-app:${{ github.sha }}-latest . 
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/vue-app:${{ github.sha }}-latest

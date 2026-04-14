@@ -1,15 +1,17 @@
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v3
+build:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-  - name: Login to Docker Hub
-    uses: docker/login-action@v2
-    with:
-      username: ${{ secrets.DOCKER_USERNAME }}
-      password: ${{ secrets.DOCKER_TOKEN }}
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN }}
 
-  - name: Build Docker image
-    run: docker build BUILD_ID=${{ github.sha }} -t ${{ secrets.DOCKER_USERNAME }}/vue-app:${{ github.sha }}-latest . 
+    - name: Build Docker image
+      run: docker build BUILD_ID=${{ github.sha }} -t ${{ secrets.DOCKER_USERNAME }}/vue-app:${{ github.sha }}-latest . 
 
-  - name: Push Docker image
-    run: docker push ${{ secrets.DOCKER_USERNAME }}/vue-app:${{ github.sha }}-latest
+    - name: Push Docker image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/vue-app:${{ github.sha }}-latest
