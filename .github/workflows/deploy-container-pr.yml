@@ -1,4 +1,4 @@
-name: Build and Deploy to Azure
+name: Bulid on PR on main
 
 on:
   pull_request:
