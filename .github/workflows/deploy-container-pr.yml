@@ -25,7 +25,7 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/vue-app:${{ github.sha }}-latest
-          build-arg: BUILD_ID=${{ github.sha }}
+          build-args: BUILD_ID=${{ github.sha }}
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/vue-app:${{ github.sha }}-latest
