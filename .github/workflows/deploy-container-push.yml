@@ -5,10 +5,10 @@ on:
 
 jobs:
   build:
-    uses: ./build/_build_docker_image.yml
+    uses: ./build/_build_docker_image.yml@latest
     secrets: inherit
 
   deploy:
     needs: build
-    uses: ./deploy/_deploy_docker_image.yml
+    uses: ./deploy/_deploy_docker_image.yml@latest
     secrets: inherit
