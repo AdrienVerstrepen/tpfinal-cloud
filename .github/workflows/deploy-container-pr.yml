@@ -17,8 +17,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Docker image
-        run: docker build -build-arg BUILD_ID=${{ github.sha }} -t ${{ secrets.DOCKERHUB_USERNAME }}/vue-app:${{ github.sha }}-latest . 
+      - name: Setup docker Build image
+        uses: docker/setup-buildx-action@v4
+      
+      - name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/vue-app:${{ github.sha }}-latest
+          build-arg: BUILD_ID=${{ github.sha }}
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/vue-app:${{ github.sha }}-latest
