@@ -5,12 +5,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./build/_build_docker_image.yml
+    uses: ./build/_build_docker_image.yml
+    secrets: inherit
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./deploy/_deploy_docker_image.yml
+    uses: ./deploy/_deploy_docker_image.yml
+    secrets: inherit

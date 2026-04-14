@@ -6,6 +6,4 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./build/_build_docker_image.yml
+    uses: ./build/_build_docker_image.yml
